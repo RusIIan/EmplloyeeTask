@@ -33,8 +33,6 @@ try
         | Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.ResponseHeaders;
         //| Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.ResponseBody; 
         // ------------------------------------------Here we show our result directly on console--------------------------
-
-        c.ResponseHeaders.Add("CustomerGUID");
     });
 
     builder.Host.UseSerilog(); // <-- Add this line
