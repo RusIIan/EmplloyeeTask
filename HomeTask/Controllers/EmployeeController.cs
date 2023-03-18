@@ -17,6 +17,7 @@ namespace HomeTask.Controllers
             _employeeRepository = employeeRepository;
             _logger = logger;
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeDto employeeDto)
         {
@@ -25,6 +26,7 @@ namespace HomeTask.Controllers
             _logger.LogInformation($"request successfully created {DateTime.Now}");
             var employee = await _employeeRepository.CreateAsync(employeeDto);
             wastch.Stop();
+            _logger.LogInformation($"time: {wastch.ElapsedMilliseconds}");
             return Ok(employee);
         }
         [HttpGet]
@@ -32,12 +34,10 @@ namespace HomeTask.Controllers
         {
             var wastch = new Stopwatch();
             wastch.Start();
-
             _logger.LogInformation($"You sent a request{DateTime.Now}");
             var emp = await  _employeeRepository.GetAllAsync();
-
             wastch.Stop();
-            _logger.LogInformation($"time:{wastch.ElapsedMilliseconds}");
+            _logger.LogInformation($"time: {wastch.ElapsedMilliseconds}");
             return Ok(emp);
 
         }
@@ -50,8 +50,8 @@ namespace HomeTask.Controllers
             if(empDel==null)
                 return NotFound("Employee not found");
             wastch.Stop();
-
-           return Ok(empDel);
+            _logger.LogInformation($"time: {wastch.ElapsedMilliseconds}");
+            return Ok(empDel);
         }
         [HttpPut]
         public async Task<IActionResult> Updata(int id,EmployeeUpdateDto employeeUpdate)
@@ -62,6 +62,7 @@ namespace HomeTask.Controllers
             var empUpd = await _employeeRepository.UpdateAsync(id, employeeUpdate);
             _logger.LogInformation($"Request completed successfully{DateTime.Now}");
             wastch.Stop();
+            _logger.LogInformation($"time: {wastch.ElapsedMilliseconds}");
             return Ok(empUpd);
         }
         [HttpGet("id")]
@@ -73,6 +74,7 @@ namespace HomeTask.Controllers
             var empId = await _employeeRepository.GetIdAsync(id);
             _logger.LogInformation("Employee was Fount");
             wastch.Stop();
+            _logger.LogInformation($"time: {wastch.ElapsedMilliseconds}");
             return Ok(empId);
         }
     }
