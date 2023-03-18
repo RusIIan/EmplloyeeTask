@@ -32,10 +32,14 @@ namespace HomeTask.Controllers
         {
             var wastch = new Stopwatch();
             wastch.Start();
+
             _logger.LogInformation($"You sent a request{DateTime.Now}");
             var emp = await  _employeeRepository.GetAllAsync();
+
             wastch.Stop();
+            _logger.LogInformation($"time:{wastch.ElapsedMilliseconds}");
             return Ok(emp);
+
         }
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
